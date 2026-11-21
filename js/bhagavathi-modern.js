@@ -544,7 +544,7 @@
      7. Copy UPI VPA & Modals Close & Back to Top
      ------------------------------------------------------------------ */
   function closeAllModals() {
-    document.querySelectorAll(".bc-modal-backdrop.open").forEach(function (m) {
+    document.querySelectorAll(".bc-modal-backdrop.open, .bc-popup-backdrop.open").forEach(function (m) {
       m.classList.remove("open");
     });
     stopVideoAutoplay();
@@ -662,7 +662,122 @@
   /* ------------------------------------------------------------------
      Boot
      ------------------------------------------------------------------ */
+
+  /* ------------------------------------------------------------------
+     9. Preloader & Welcome Join Pop-Up Photo Modal
+     ------------------------------------------------------------------ */
+  function initPreloaderAndPopup() {
+    const preloader = document.getElementById("bcPreloader");
+    const popup = document.getElementById("bcJoinPopup");
+    const popupClose = document.getElementById("bcJoinPopupClose");
+
+    function triggerJoinPopup() {
+      if (!popup) return;
+      try {
+        if (sessionStorage.getItem("bcJoinPopupDismissed") === "true") {
+          return;
+        }
+      } catch (err) {}
+
+      setTimeout(function () {
+        popup.classList.add("open");
+        document.body.style.overflow = "hidden";
+      }, 350);
+    }
+
+    function closeJoinPopup() {
+      if (!popup) return;
+      popup.classList.remove("open");
+      document.body.style.overflow = "";
+      try {
+        sessionStorage.setItem("bcJoinPopupDismissed", "true");
+      } catch (err) {}
+    }
+
+    if (popupClose) {
+      popupClose.addEventListener("click", function (e) {
+        e.preventDefault();
+        closeJoinPopup();
+      });
+    }
+
+    if (popup) {
+      popup.addEventListener("click", function (e) {
+        if (e.target === popup) {
+          closeJoinPopup();
+        }
+      });
+    }
+
+    window.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && popup && popup.classList.contains("open")) {
+        closeJoinPopup();
+      }
+    });
+
+    // Dismiss preloader smoothly
+    function dismissPreloader() {
+      if (!preloader || preloader.dataset.dismissed === "true") return;
+      preloader.dataset.dismissed = "true";
+      preloader.classList.add("fade-out");
+      setTimeout(function () {
+        preloader.style.display = "none";
+        triggerJoinPopup();
+      }, 450);
+    }
+
+    if (document.readyState === "complete") {
+      setTimeout(dismissPreloader, 250);
+    } else {
+      window.addEventListener("load", function () {
+        setTimeout(dismissPreloader, 250);
+      });
+      // Safety timeout fallback
+      setTimeout(dismissPreloader, 900);
+    }
+  }
+
+  /* ------------------------------------------------------------------
+     10. Mobile Sticky Bottom Navigation Active Item
+     ------------------------------------------------------------------ */
+  function initBottomNav() {
+    const path = window.location.pathname.toLowerCase();
+    const navItems = document.querySelectorAll(".bc-bottom-nav-item");
+    if (!navItems.length) return;
+
+    let matched = false;
+    navItems.forEach(function (item) {
+      const page = item.dataset.bottomPage;
+      if (!page) return;
+
+      if (
+        (page === "index" && (path.endsWith("index.html") || path.endsWith("/") || path === "")) ||
+        (page === "chit-plans" && path.includes("chit-plans.html")) ||
+        (page === "branches" && (path.includes("mysore-branch") || window.location.hash === "#branches")) ||
+        (page === "payments" && path.includes("payments.html")) ||
+        (page === "kyc" && path.includes("kyc.html"))
+      ) {
+        item.classList.add("active");
+        matched = true;
+      } else {
+        item.classList.remove("active");
+      }
+    });
+
+    if (!matched) {
+      if (path.includes("services") || path.includes("how-it-works") || path.includes("benefits")) {
+        const chitPlanItem = document.querySelector('.bc-bottom-nav-item[data-bottom-page="chit-plans"]');
+        if (chitPlanItem) chitPlanItem.classList.add("active");
+      } else if (path.includes("contact")) {
+        const branchItem = document.querySelector('.bc-bottom-nav-item[data-bottom-page="branches"]');
+        if (branchItem) branchItem.classList.add("active");
+      }
+    }
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
+    initPreloaderAndPopup();
+    initBottomNav();
     initNavigation();
     initCounters();
     initHeroShowcase();

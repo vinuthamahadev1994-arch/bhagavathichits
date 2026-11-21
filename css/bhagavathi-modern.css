@@ -2728,6 +2728,9 @@ button, input, select, textarea {
   .bc-cta-banner {
     padding: 32px 22px;
   }
+  .bc-footer-bottom {
+    padding-right: 64px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -2789,5 +2792,407 @@ button, input, select, textarea {
     width: 44px;
     height: 44px;
     font-size: 18px;
+  }
+}
+
+/* ==========================================================================
+   Calling Button Icon (Handset Receiver Style)
+   ========================================================================== */
+.bc-phone-handset {
+  display: inline-block;
+  vertical-align: -0.16em;
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+a:hover > .bc-phone-handset,
+button:hover > .bc-phone-handset,
+.bc-btn-solid-orange:hover .bc-phone-handset,
+.bc-btn-outline-orange:hover .bc-phone-handset,
+.bc-btn-solid-navy:hover .bc-phone-handset,
+.btn-hero-navy:hover .bc-phone-handset,
+.bc-float-call:hover .bc-phone-handset {
+  transform: rotate(-14deg) scale(1.12);
+}
+
+/* ==========================================================================
+   Page Preloader
+   ========================================================================== */
+.bc-preloader {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999999;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.45s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.45s ease;
+}
+
+.bc-preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.bc-preloader-inner {
+  text-align: center;
+  padding: 32px 24px;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.bc-preloader-logo-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.bc-preloader-logo {
+  height: 48px;
+  width: auto;
+  position: relative;
+  z-index: 2;
+  animation: bcPulse 1.8s ease-in-out infinite;
+}
+
+.bc-preloader-spinner {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border: 3.5px solid rgba(255, 111, 0, 0.12);
+  border-top-color: var(--color-orange);
+  border-right-color: var(--color-navy);
+  border-radius: 50%;
+  animation: bcSpin 0.9s linear infinite;
+}
+
+.bc-preloader-bar-wrap {
+  width: 180px;
+  height: 4px;
+  background: #f1f5f9;
+  border-radius: 99px;
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.bc-preloader-bar {
+  width: 45%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-orange), var(--color-navy));
+  border-radius: 99px;
+  animation: bcBarAnim 1.25s ease-in-out infinite;
+}
+
+.bc-preloader-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  letter-spacing: 0.3px;
+  margin: 0;
+}
+
+@keyframes bcSpin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes bcPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes bcBarAnim {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(120%); }
+  100% { transform: translateX(300%); }
+}
+
+/* ==========================================================================
+   Welcome / Join Bhagavathi Chit Funds Pop-Up Photo Modal
+   ========================================================================== */
+.bc-popup-backdrop {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.68);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.35s ease;
+}
+
+.bc-popup-backdrop.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+.bc-popup-card {
+  background: #ffffff;
+  border-radius: 20px;
+  max-width: 520px;
+  width: 100%;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+  position: relative;
+  transform: translateY(24px) scale(0.96);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+}
+
+.bc-popup-backdrop.open .bc-popup-card {
+  transform: translateY(0) scale(1);
+}
+
+.bc-popup-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  z-index: 10;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  color: var(--color-navy);
+  font-size: 22px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+.bc-popup-close-btn:hover {
+  background: var(--color-orange);
+  color: #ffffff;
+  transform: rotate(90deg);
+}
+
+.bc-popup-media {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: #f1f5f9;
+  overflow: hidden;
+}
+
+.bc-popup-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bc-popup-overlay {
+  position: absolute;
+  bottom: 12px;
+  left: 16px;
+  right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bc-popup-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 99px;
+  background: rgba(27, 54, 93, 0.92);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.bc-popup-pill i {
+  color: var(--color-orange);
+}
+
+.bc-popup-content {
+  padding: 24px 28px 26px;
+}
+
+.bc-popup-title {
+  font-family: var(--font-heading);
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--color-navy);
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+.bc-popup-desc {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  margin-bottom: 16px;
+}
+
+.bc-popup-features {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  margin-bottom: 20px;
+}
+
+.bc-popup-feat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+.bc-popup-feat-item i {
+  color: #16a34a;
+  font-size: 14px;
+  flex: none;
+}
+
+.bc-popup-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.bc-popup-actions a {
+  flex: 1;
+  text-align: center;
+  padding: 12px 14px;
+  font-size: 14px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+@media (max-width: 480px) {
+  .bc-popup-media {
+    height: 160px;
+  }
+  .bc-popup-content {
+    padding: 18px 18px 20px;
+  }
+  .bc-popup-title {
+    font-size: 19px;
+  }
+  .bc-popup-features {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .bc-popup-actions {
+    flex-direction: column;
+  }
+}
+
+/* ==========================================================================
+   Mobile Sticky Bottom Navigation Bar (Mobile View Only)
+   ========================================================================== */
+.bc-bottom-nav {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  body {
+    padding-bottom: 68px !important; /* Offset for sticky mobile bottom bar */
+  }
+
+  .bc-footer {
+    padding-bottom: 78px !important;
+  }
+
+  .bc-floating-actions {
+    bottom: 74px !important;
+  }
+
+  .bc-bottom-nav {
+    display: flex !important;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 62px;
+    background: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.07);
+    z-index: 998;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 4px;
+    padding-bottom: env(safe-area-inset-bottom, 0);
+  }
+
+  .bc-bottom-nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    color: #64748b;
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: -0.1px;
+    transition: color 0.2s ease, transform 0.15s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .bc-bottom-nav-item i {
+    font-size: 17px;
+    line-height: 1;
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .bc-bottom-nav-item:hover,
+  .bc-bottom-nav-item.active {
+    color: var(--color-orange);
+  }
+
+  .bc-bottom-nav-item:hover i,
+  .bc-bottom-nav-item.active i {
+    color: var(--color-orange);
+    transform: translateY(-2px);
+  }
+
+  .bc-bottom-nav-item:active {
+    transform: scale(0.94);
+  }
+}
+
+@media (min-width: 769px) {
+  .bc-bottom-nav {
+    display: none !important;
   }
 }
